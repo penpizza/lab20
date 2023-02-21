@@ -8,8 +8,10 @@
 using namespace std;
 
 struct student{
-
-    //Define struct student with four member (name ,id , gender, gpa);
+	string name;
+	int id;
+	char gender;
+	double gpa;
     
 };
 
@@ -20,7 +22,7 @@ struct course{
 	vector<student *> student_list;
 };
 
-student * findstudent(vector<student> allstudents,int key){ //There is something wrong in this line.
+student * findstudent(vector<student> &allstudents,int key){ //There is something wrong in this line.
 	for(unsigned int i = 0; i < allstudents.size(); i++){
 		if(allstudents[i].id  == key) return &allstudents[i];
 	}
@@ -63,8 +65,8 @@ int main(){
 	
 	while(getline(student_file,textline)){
 		student s; 
-		
-		//Use sscanf() to split the values in textline and assign those values to the members of struct s;
+		char format [] = "%[^:],%d,%s,%d";
+		sscanf(textline.c_str(),format,s.name,s.id,s.gender,s.gpa);
 
 		allstudents.push_back(s); 		
 	}
