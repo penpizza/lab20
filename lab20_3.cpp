@@ -8,7 +8,7 @@
 using namespace std;
 
 struct student{
-    string name;
+    char name[100];
     int id;
     char gender;
     float gpa;
@@ -65,10 +65,9 @@ int main(){
 	
 	while(getline(student_file,textline)){
 		student s; 
-		char t[100];
 		char format[] = "%[^,],%d,%[^,],%f";
-	    sscanf(textline.c_str(),format,t,&s.id,&s.gender,&s.gpa);
-		s.name = t;
+	    	sscanf(textline.c_str(),format,&s.name,&s.id,&s.gender,&s.gpa);
+
 		allstudents.push_back(s); 		
 	}
 	
