@@ -8,10 +8,10 @@
 using namespace std;
 
 struct student{
-	string name;
-	int id;
-	char gender;
-	double gpa;
+    string name;
+    int id;
+    char gender;
+    float gpa;
     
 };
 
@@ -65,13 +65,14 @@ int main(){
 	
 	while(getline(student_file,textline)){
 		student s; 
-		char format [] = "%[^:],%d,%s,%d";
-		sscanf(textline.c_str(),format,s.name,s.id,s.gender,s.gpa);
-
+		char t[100];
+		char format[] = "%[^,],%d,%[^,],%f";
+	    sscanf(textline.c_str(),format,t,&s.id,&s.gender,&s.gpa);
+		s.name = t;
 		allstudents.push_back(s); 		
 	}
 	
-	int state = 1;
+	int state = 1,s=0;
 	while(getline(course_file,textline)){
 		if(state == 1){
 			course c;
@@ -86,16 +87,17 @@ int main(){
 				state = 3;
 			}else{
 			
-			    //Append (push_back) textline to lecture_list[] of the recently added course in allcourses[];
+			   allcourses[s].lecture_list.push_back(textline);
 			    
 			}			
 		}else{
 			if(textline == "---------------------------------------"){
 				state = 1;
+				s++;
 			}else{
 				student *p = findstudent(allstudents,atof(textline.c_str()));
 				
-				//Append (push_back) p to student_list of the recently added course in allcourses[];
+				allcourses[s].student_list.push_back(p);
 				
 			}
 		}
